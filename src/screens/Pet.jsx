@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { pet, squad, badges as allBadges, petMeta } from '../data.js'
-import { PhoneHeader, PrimaryButton, GhostButton, Card, Chip, Bar, PetAvatar } from '../components/ui.jsx'
+import { PhoneHeader, PrimaryButton, GhostButton, Card, Chip, Bar, PetAvatar, HexBadge } from '../components/ui.jsx'
 
 // ⑧ 知識精靈養成 + 六角徽章 + 學習戰隊（敲朋友）
 export default function Pet({ go }) {
