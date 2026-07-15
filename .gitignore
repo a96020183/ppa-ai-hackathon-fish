@@ -12,3 +12,17 @@ Thumbs.db
 *.xlsx
 *.pdf
 **/官方*/
+
+# helper scripts (local only)
+setup.bat
+dev.bat
+pull.bat
+pull2.bat
+fetch.bat
+check.bat
+diff.bat
+push.bat
+run_npm.cmd
+npm_log.txt
+npm_exit.txt
+npm_result.txt
