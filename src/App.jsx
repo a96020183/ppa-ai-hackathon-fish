@@ -1,34 +1,37 @@
 import React, { useState } from 'react'
 import { flow } from './data.js'
 import Arena from './screens/Arena.jsx'
+import Leaderboard from './screens/Leaderboard.jsx'
 import Quiz from './screens/Quiz.jsx'
 import SoftLanding from './screens/SoftLanding.jsx'
 import RadarResult from './screens/RadarResult.jsx'
 import Recommend from './screens/Recommend.jsx'
+import Profile from './screens/Profile.jsx'
 import Pet from './screens/Pet.jsx'
 import Multimodal from './screens/Multimodal.jsx'
-import Metrics from './screens/Metrics.jsx'
 
 const SCREENS = {
   arena: Arena,
+  leaderboard: Leaderboard,
   quiz: Quiz,
   softland: SoftLanding,
   radar: RadarResult,
   recommend: Recommend,
+  profile: Profile,
   pet: Pet,
   multimodal: Multimodal,
-  metrics: Metrics,
 }
 
 const MODULE_TAGS = {
   arena: '入口',
+  leaderboard: '入口 · 留存',
   quiz: '入口',
   softland: '模組 B',
   radar: '模組 A · 主線',
   recommend: '模組 C',
+  profile: '個人主頁',
   pet: '模組 A',
   multimodal: '模組 D',
-  metrics: '成效',
 }
 
 export default function App() {
@@ -71,7 +74,7 @@ export default function App() {
             </div>
           </div>
           <div className="mt-3 rounded-2xl border border-ppline/60 bg-ppnavy2/60 p-3 text-[11px] leading-relaxed text-white/60">
-            <b className="text-white/80">建議動線：</b>擂台 → 答題（故意選 A 答錯）→ 45秒軟著陸 → AI 主動診斷 → 推薦去重 → 精靈養成 → 多模態 → 成效。
+            <b className="text-white/80">建議動線：</b>擂台 → 排行榜 → 答題（選 A 答錯）→ 45秒軟著陸 → AI 診斷雷達 → 推薦去重 → 個人主頁 → 精靈/戰隊 → 多模態。
           </div>
         </aside>
 

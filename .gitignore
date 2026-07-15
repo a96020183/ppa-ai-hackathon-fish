@@ -22,6 +22,7 @@ fetch.bat
 check.bat
 diff.bat
 push.bat
+build.bat
 run_npm.cmd
 npm_log.txt
 npm_exit.txt

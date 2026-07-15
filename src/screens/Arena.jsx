@@ -1,6 +1,6 @@
 import React from 'react'
-import { categories, pet } from '../data.js'
-import { PhoneHeader, PrimaryButton, Card, Chip } from '../components/ui.jsx'
+import { categories, categoryRadars, pet } from '../data.js'
+import { PhoneHeader, PrimaryButton, Card, PetAvatar } from '../components/ui.jsx'
 
 export default function Arena({ go }) {
   const ladder = [
@@ -11,25 +11,25 @@ export default function Arena({ go }) {
     <div>
       <PhoneHeader title="知識PK擂台 🚀" />
       <div className="px-4 pb-6 space-y-3">
-        {/* user + pet entry */}
+        {/* user + pet + profile entry */}
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="h-9 w-9 rounded-full bg-gradient-to-br from-ppcyan to-pporange" />
+          <button onClick={() => go('profile')} className="flex items-center gap-2 text-left">
+            <PetAvatar form={pet.primaryForm} size={38} />
             <div>
-              <div className="text-sm font-bold">Ho Wa Chui <span className="ml-1 rounded bg-white/15 px-1 text-[10px]">Lv.5</span></div>
-              <div className="text-[11px] text-white/60">勝場數 3｜勝率 100%</div>
+              <div className="text-sm font-bold">Ho Wa Chui <span className="ml-1 rounded bg-white/15 px-1 text-[10px]">Lv.{pet.level}</span></div>
+              <div className="text-[11px] text-white/60">點我看個人主頁 ›</div>
             </div>
-          </div>
+          </button>
           <button onClick={() => go('pet')} className="flex items-center gap-1 rounded-xl bg-ppcyan/15 px-2 py-1 text-[11px] text-ppcyan">
             🐣 我的 {pet.name}
           </button>
         </div>
 
-        {/* 個人挑戰 ladder */}
+        {/* 大榜：個人挑戰 ladder（多題連勝） */}
         <Card className="p-3">
           <div className="mb-2 flex items-center justify-between text-xs">
-            <span className="font-bold">個人挑戰</span>
-            <span className="text-white/60">本月最高紀錄：2 階</span>
+            <span className="font-bold">個人挑戰（連勝衝榜）</span>
+            <button onClick={() => go('leaderboard')} className="text-pporange">看排行榜 ›</button>
           </div>
           <div className="flex items-center justify-between">
             {ladder.map((l, i) => (
@@ -43,21 +43,33 @@ export default function Arena({ go }) {
           <div className="mt-3"><PrimaryButton onClick={() => go('quiz')}>免費挑戰</PrimaryButton></div>
         </Card>
 
-        {/* 六大分類 */}
-        {categories.map((c) => (
-          <button key={c.key} onClick={() => go('quiz')} className="w-full text-left">
-            <Card tone={c.tone} className="flex items-center justify-between p-3">
-              <div>
-                <div className="text-sm font-bold">{c.name}</div>
-                <div className="text-[11px] opacity-70">入場費 {c.fee} 🪙</div>
-              </div>
-              <div className="text-2xl">{c.icon}</div>
-            </Card>
-          </button>
-        ))}
+        {/* 六大分類：跟人 PK，各自累積分類雷達 */}
+        <div className="px-1 text-[12px] font-bold text-white/70">分類對戰（跟人 PK · 各自累積雷達）</div>
+        {categories.map((c) => {
+          const r = categoryRadars[c.key]
+          const unlocked = r.played >= r.unlockAt
+          return (
+            <button key={c.key} onClick={() => go(unlocked ? 'radar' : 'quiz')} className="w-full text-left">
+              <Card tone={c.tone} className="flex items-center justify-between p-3">
+                <div>
+                  <div className="text-sm font-bold">{c.name} {c.icon}</div>
+                  <div className="text-[11px] opacity-70">
+                    {unlocked
+                      ? `雷達已解鎖 · 總分 ${r.total}`
+                      : `再玩 ${r.unlockAt - r.played} 場解鎖雷達（${r.played}/${r.unlockAt}）`}
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="text-[11px] opacity-60">入場費 {c.fee} 🪙</div>
+                  <div className="text-[11px] font-bold">{unlocked ? '🔓 看雷達' : '🔒'}</div>
+                </div>
+              </Card>
+            </button>
+          )
+        })}
 
         <div className="pt-1 text-center text-[11px] text-white/40">
-          點任一分類即可體驗完整 AI 助教流程
+          分類玩滿 5 場 → 解鎖該分類 AI 實力雷達；雷達總分決定 PiPi 外型
         </div>
       </div>
     </div>
