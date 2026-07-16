@@ -66,20 +66,18 @@ export function PhoneHeader({ title, coins = 325, back, onBack }) {
   )
 }
 
-// 寵物頭像：優先用圖片（/pets/*.png），載入失敗自動 fallback 成 emoji
-export function PetAvatar({ form = 'default', size = 72, className = '' }) {
-  const meta = petMeta.forms[form] || petMeta.forms.default
-  const [broken, setBroken] = React.useState(false)
-  if (broken || !meta.img) {
-    return <span style={{ fontSize: size * 0.8, lineHeight: 1 }} className={className}>{meta.emoji}</span>
-  }
+// 寵物頭像：優先用真圖（/pets/*.png）；未解鎖或無圖 → 顯示黑色剪影（lock1/2/3 輪替）
+export function PetAvatar({ form = 'default', size = 72, className = '', lock = false, lockVariant = 1 }) {
+  const meta = petMeta.forms[form]
+  const lockSrc = petMeta.locks[(lockVariant - 1) % petMeta.locks.length]
+  const showLock = lock || !meta || !meta.img
+  const src = showLock ? lockSrc : meta.img
   return (
     <img
-      src={meta.img}
-      alt={meta.label}
+      src={src}
+      alt={showLock ? '未解鎖 PiPi' : meta.label}
       width={size}
       height={size}
-      onError={() => setBroken(true)}
       style={{ width: size, height: size, objectFit: 'contain' }}
       className={className}
     />

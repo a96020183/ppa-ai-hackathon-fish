@@ -30,10 +30,8 @@ export default function Leaderboard({ go }) {
           ))}
         </div>
 
-        {/* 榜單說明 */}
-        <div className={`mt-2 rounded-xl border p-2 text-[11px] ${tab === 'total' ? 'border-red-400/40 bg-red-500/10 text-red-200' : 'border-ppgreen/30 bg-ppgreen/10 text-ppgreen/90'}`}>
-          {board.note}
-        </div>
+        {/* 榜單重置說明（純 UI） */}
+        <div className="mt-2 text-center text-[11px] text-white/45">🕐 {board.note}</div>
 
         {/* 獎台 top3 */}
         <div className="mt-3 flex items-end justify-center gap-2">
@@ -78,16 +76,18 @@ export default function Leaderboard({ go }) {
             </div>
             <Chip color="orange">我</Chip>
           </div>
+          {/* 勝過多少 % 玩家 → 成就感 */}
+          <div className="mt-2 rounded-xl bg-black/25 p-2 text-center">
+            <div className="text-[11px] text-white/60">你在{board.label}擊敗了</div>
+            <div className="text-[22px] font-black text-pporange leading-tight">{board.me.beatPct}%</div>
+            <div className="text-[11px] text-white/60">的玩家 🎉</div>
+            <div className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-white/15">
+              <div className="h-full bg-pporange" style={{ width: board.me.beatPct + '%' }} />
+            </div>
+          </div>
         </div>
 
-        {/* 痛點對照說明 */}
-        <div className="mt-3 rounded-xl border border-ppcyan/30 bg-ppcyan/10 p-3 text-[12px] text-ppcyan/90">
-          <b>為什麼要日/週/月榜？</b><br />
-          總榜老玩家累積上萬場，新人排到 <b className="text-white">99+</b> 直接放棄。
-          切到「日榜」你就從 <b className="text-white">第 6 名</b>起跑 → 每天都有上榜的希望，回訪動機大增。
-        </div>
-
-        <div className="mt-3"><button onClick={() => go('quiz')} className="w-full rounded-xl bg-pporange py-3 font-bold text-[#231600]">立即挑戰衝日榜</button></div>
+        <div className="mt-3"><button onClick={() => go('quiz')} className="w-full rounded-xl bg-pporange py-3 font-bold text-[#231600]">立即挑戰</button></div>
       </div>
     </div>
   )

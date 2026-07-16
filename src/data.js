@@ -16,8 +16,8 @@ export const categories = [
 export const leaderboards = {
   daily: {
     label: '日榜',
-    note: '每天 00:00 歸零 → 新玩家今天也能衝上榜！',
-    me: { rank: 6, name: 'Ho Wa Chui', lv: 5, wins: 3, rate: 75 },
+    note: '每日 00:00 重置',
+    me: { rank: 6, name: 'Ho Wa Chui', lv: 5, wins: 3, rate: 75, beatPct: 62 },
     top: [
       { rank: 2, name: 'CFL', lv: 154, wins: 12, rate: 92, tone: 'cool' },
       { rank: 1, name: 'Jujufufu', lv: 161, wins: 15, rate: 95, tone: 'warm' },
@@ -30,8 +30,8 @@ export const leaderboards = {
   },
   weekly: {
     label: '週榜',
-    note: '每週一歸零 → 一週努力就有機會擠進前段班',
-    me: { rank: 23, name: 'Ho Wa Chui', lv: 5, wins: 21, rate: 78 },
+    note: '每週一 00:00 重置',
+    me: { rank: 23, name: 'Ho Wa Chui', lv: 5, wins: 21, rate: 78, beatPct: 55 },
     top: [
       { rank: 2, name: 'CFL', lv: 154, wins: 188, rate: 92, tone: 'cool' },
       { rank: 1, name: 'Jujufufu', lv: 161, wins: 205, rate: 95, tone: 'warm' },
@@ -44,8 +44,8 @@ export const leaderboards = {
   },
   monthly: {
     label: '月榜',
-    note: '每月歸零 → 中量級玩家也有舞台',
-    me: { rank: 58, name: 'Ho Wa Chui', lv: 5, wins: 74, rate: 76 },
+    note: '每月 1 號 00:00 重置',
+    me: { rank: 58, name: 'Ho Wa Chui', lv: 5, wins: 74, rate: 76, beatPct: 48 },
     top: [
       { rank: 2, name: 'CFL', lv: 154, wins: 921, rate: 92, tone: 'cool' },
       { rank: 1, name: 'Jujufufu', lv: 161, wins: 1051, rate: 95, tone: 'warm' },
@@ -58,8 +58,8 @@ export const leaderboards = {
   },
   total: {
     label: '總榜',
-    note: '⚠️ 老玩家累積上萬場 → 新人幾乎不可能上榜（這就是痛點）',
-    me: { rank: '99+', name: 'Ho Wa Chui', lv: 5, wins: 3, rate: 75 },
+    note: '歷史累積總排名',
+    me: { rank: '99+', name: 'Ho Wa Chui', lv: 5, wins: 3, rate: 75, beatPct: 12 },
     top: [
       { rank: 2, name: 'CFL', lv: 154, wins: 11388, rate: 92, tone: 'cool' },
       { rank: 1, name: 'Jujufufu', lv: 161, wins: 15751, rate: 95, tone: 'warm' },
@@ -192,15 +192,24 @@ export const recommendations = [
 export const petMeta = {
   species: 'PiPi 精靈',
   brandNote: '沿用 PPA 官方社群自稱的「PiPi」品牌人格',
-  // 外型定義：key 對應 categoryRadars[*].outfit
+  // 未解鎖外型顯示的黑色剪影（3 種姿勢輪替）
+  locks: ['/pets/pipi-lock1.png', '/pets/pipi-lock2.png', '/pets/pipi-lock3.png'],
+  // 外型定義：img 為 null 者尚無圖 → 顯示未解鎖剪影
   forms: {
-    default: { emoji: '🥚', img: '/pets/pipi-default.png', label: '素顏 PiPi（新手）', desc: '尚未累積足夠分類實力' },
-    suit: { emoji: '🤵', img: '/pets/pipi-suit.png', label: '西裝 PiPi', desc: '投資理財實力最高' },
-    fitness: { emoji: '💪', img: '/pets/pipi-fitness.png', label: '健身 PiPi', desc: '健康健身實力突出' },
-    chef: { emoji: '👨‍🍳', img: '/pets/pipi-chef.png', label: '主廚 PiPi', desc: '烘焙料理實力突出' },
-    scholar: { emoji: '🤓', img: '/pets/pipi-scholar.png', label: '學者 PiPi', desc: '語言學習實力突出' },
-    life: { emoji: '🎩', img: '/pets/pipi-life.png', label: '品味 PiPi', desc: '生活品味實力突出' },
+    default: { img: '/pets/pipi-default.png', label: '素顏 PiPi', title: '潛力新星' },
+    suit: { img: '/pets/pipi-suit.png', label: '西裝 PiPi', title: '菁英操盤手' },
+    chef: { img: '/pets/pipi-chef.png', label: '主廚 PiPi', title: '療癒甜點師' },
+    scholar: { img: '/pets/pipi-scholar.png', label: '學者 PiPi', title: '博學智者' },
   },
+  // 外型圖鑑：每個外型 = 分類雷達總分前二的「組合」。尚未設計的組合以黑 PiPi 剪影表示。
+  gallery: [
+    { form: 'default', label: '素顏 PiPi', combo: '新手起點' },
+    { form: 'suit', label: '西裝 PiPi', combo: '投資理財 × 健康健身' },
+    { form: 'chef', label: '主廚 PiPi', combo: '烘焙料理 × 生活品味' },
+    { form: 'scholar', label: '學者 PiPi', combo: '語言學習 × 藝文娛樂' },
+    { form: 'lock', label: '？？？', combo: '更多組合待解鎖' },
+    { form: 'lock', label: '？？？', combo: '更多組合待解鎖' },
+  ],
 }
 
 export const pet = {
@@ -210,15 +219,17 @@ export const pet = {
   primaryForm: 'suit',
   secondaryForm: 'fitness',
   formLabel: '西裝健身 PiPi',
-  formReason: '投資理財(68) + 健康健身(55) 兩項分類雷達總分最高',
-  // 能力值：由已購課程時長累積（1000 元＝1 點）。純訂閱/免費課程不計入能力值（改導向戰隊）。
+  // MBTI 風格稱號（由分類雷達總分前二組合而成，不直接顯示數字）
+  title: '自律菁英家',
+  titleDesc: '投資腦 × 行動派 · 說到做到的實踐型精靈',
+  totalExp: 130,
   abilities: [
     { cat: '投資理財', value: 63, spentNTD: 21000 },
     { cat: '健康健身', value: 40, spentNTD: 12000 },
     { cat: '烘焙料理', value: 18, spentNTD: 6000 },
     { cat: '語言學習', value: 9, spentNTD: 3000 },
   ],
-  abilityRule: '能力值＝已購課程金額 ÷ 1000（訂閱/免費課程不計，改累積到戰隊貢獻）',
+  abilityRule: '看課／購課會同時累積該分類「能力值」與「總經驗值」',
 }
 
 // ── 六角形徽章系統（放在寵物旁；玩家可選 3 個展示）──
@@ -244,7 +255,7 @@ export const squad = {
     { name: '你', form: 'suit', petName: 'PiPi', level: 7, progress: 80, isMe: true },
     { name: 'Alex', form: 'chef', petName: 'BaBa', level: 4, progress: 60 },
     { name: 'Wei', form: 'scholar', petName: 'WuWu', level: 6, progress: 100 },
-    { name: '狗兒', form: 'fitness', petName: 'DoDo', level: 3, progress: 35 },
+    { name: '狗兒', form: 'default', petName: 'DoDo', level: 3, progress: 35 },
   ],
   pokeMsg: (from, to) => `已敲 ${to} 一下：「${from} 提醒你不要睡著，記得回來看課 👀」`,
 }

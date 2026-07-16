@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { pet, squad, badges as allBadges, petMeta } from '../data.js'
 import { PhoneHeader, PrimaryButton, GhostButton, Card, Chip, Bar, PetAvatar, HexBadge } from '../components/ui.jsx'
 
-// ⑧ 知識精靈養成 + 六角徽章 + 學習戰隊（敲朋友）
+// 知識精靈養成 + 六角徽章 + 學習戰隊（敲朋友）
 export default function Pet({ go }) {
   const [gained, setGained] = useState(false)
   const [exp, setExp] = useState(320)
@@ -24,48 +24,48 @@ export default function Pet({ go }) {
     <div>
       <PhoneHeader title={`知識精靈 · ${pet.name}`} />
       <div className="px-4 pb-6">
-        <div className="mt-1 flex flex-wrap gap-2">
-          <Chip color="orange">模組A</Chip>
-          <Chip color="green">EXP 綁定看課</Chip>
-        </div>
-
-        {/* pet + 外型來源說明 */}
-        <div className="mt-3 rounded-2xl p-4 text-center shadow-card" style={{ background: 'linear-gradient(180deg,#1a366b,#0e2143)' }}>
+        {/* pet + MBTI 風稱號 */}
+        <div className="mt-2 rounded-2xl p-4 text-center shadow-card" style={{ background: 'linear-gradient(180deg,#1a366b,#0e2143)' }}>
           <div className="animate-floaty flex justify-center"><PetAvatar form={pet.primaryForm} size={120} /></div>
           <div className="mt-1 text-lg font-extrabold">{pet.name} <span className="text-[12px] font-normal text-white/60">Lv.{pet.level}</span></div>
-          <div className="text-[12px] text-ppcyan">{pet.formLabel}</div>
-          <div className="mx-auto mt-2 max-w-[260px] rounded-lg bg-black/25 p-2 text-[11px] text-white/70">
-            外型來源：{pet.formReason}
-          </div>
+          <div className="mt-1 inline-block rounded-full bg-pporange/20 px-3 py-0.5 text-[14px] font-bold text-pporange">{pet.title}</div>
+          <div className="mt-1 text-[11px] text-white/65">{pet.titleDesc}</div>
+          <div className="mt-0.5 text-[11px] text-ppcyan">{pet.formLabel}</div>
           <div className="mx-auto mt-3 max-w-[240px]">
             <Bar value={exp} max={expNext} color="#F7A81B" />
-            <div className="mt-1 flex justify-between text-[11px] text-white/60"><span>EXP</span><span>{exp} / {expNext}（{pct}%）</span></div>
+            <div className="mt-1 flex justify-between text-[11px] text-white/60"><span>總經驗值</span><span>{exp} / {expNext}（{pct}%）</span></div>
           </div>
           {gained && <div className="mt-2 text-[12px] text-ppgreen">✨ 剛剛看課 +40 經驗值！</div>}
         </div>
 
-        {/* 進化外型預覽 */}
+        {/* 進化外型圖鑑（每個外型＝分類雷達總分前二的組合） */}
         <Card className="mt-3 p-3">
-          <div className="mb-2 text-[12px] font-bold text-white/80">外型圖鑑（依分類雷達總分進化）</div>
-          <div className="grid grid-cols-4 gap-2 text-center">
-            {['default', 'suit', 'fitness', 'chef', 'scholar', 'life'].map((f) => (
-              <div key={f} className={`rounded-xl p-2 ${f === pet.primaryForm ? 'bg-pporange/15 ring-1 ring-pporange' : 'bg-white/5'}`}>
-                <PetAvatar form={f} size={40} />
-                <div className="mt-1 text-[9px] text-white/60">{petMeta.forms[f].label.replace(' PiPi', '').replace('PiPi', '')}</div>
-              </div>
-            ))}
+          <div className="mb-2 text-[12px] font-bold text-white/80">外型圖鑑</div>
+          <div className="grid grid-cols-3 gap-2 text-center">
+            {petMeta.gallery.map((g, i) => {
+              const isCurrent = g.form === pet.primaryForm
+              const locked = g.form === 'lock'
+              return (
+                <div key={i} className={`rounded-xl p-2 ${isCurrent ? 'bg-pporange/15 ring-1 ring-pporange' : 'bg-white/5'}`}>
+                  <div className="flex justify-center"><PetAvatar form={g.form} lock={locked} size={48} lockVariant={(i % 3) + 1} /></div>
+                  <div className="mt-1 text-[10px] font-semibold text-white/80">{g.label}</div>
+                  <div className="text-[9px] leading-tight text-white/45">{g.combo}</div>
+                  {isCurrent && <div className="mt-0.5 text-[8px] font-bold text-pporange">目前外型</div>}
+                </div>
+              )
+            })}
           </div>
-          <div className="mt-2 text-[10px] text-white/45">所有人一開始都是「素顏 PiPi」，隨分類實力長出對應裝扮</div>
+          <div className="mt-2 text-[10px] text-white/45">人人從素顏 PiPi 出發；兩項分類實力最高 → 決定裝扮組合</div>
         </Card>
 
-        {/* 能力值（由已購課程累積） */}
+        {/* 能力值 */}
         <Card className="mt-3 p-3">
-          <div className="mb-1 text-[12px] font-bold text-white/80">能力值（對照 PPA 課程分類）</div>
+          <div className="mb-1 text-[12px] font-bold text-white/80">分類能力值</div>
           <div className="mb-2 text-[10px] text-white/45">{pet.abilityRule}</div>
           <div className="space-y-2">
             {pet.abilities.map((a) => (
               <div key={a.cat}>
-                <div className="flex justify-between text-[11px] text-white/70"><span>{a.cat}</span><span>{a.value}（已購 NT${a.spentNTD.toLocaleString()}）</span></div>
+                <div className="flex justify-between text-[11px] text-white/70"><span>{a.cat}</span><span>{a.value}</span></div>
                 <Bar value={a.value} max={100} />
               </div>
             ))}
@@ -78,7 +78,7 @@ export default function Pet({ go }) {
             <div className="text-[12px] font-bold text-white/80">🏅 徽章牆</div>
             <span className="text-[10px] text-white/50">已選 {displayed.length}/3 展示</span>
           </div>
-          <div className="mb-2 text-[10px] text-white/45">把上線時長、課程時長、連勝、大富翁…串成一套成就系統，點徽章選擇展示</div>
+          <div className="mb-2 text-[10px] text-white/45">點徽章選擇要展示在個人主頁的 3 個</div>
           <div className="grid grid-cols-4 gap-y-3">
             {allBadges.map((b) => (
               <HexBadge key={b.id} badge={b} size={58} selected={displayed.includes(b.id)} onClick={() => toggle(b)} />
@@ -110,16 +110,11 @@ export default function Pet({ go }) {
               </div>
             ))}
           </div>
-          <div className="mt-2 text-[10px] text-white/45">純訂閱/免費看課記錄 → 累積戰隊貢獻，揪隊友一起回來看課</div>
         </Card>
 
         <div className="mt-4 space-y-2">
           <PrimaryButton onClick={feed}>去看課餵養 PiPi（+EXP）</PrimaryButton>
           <GhostButton onClick={() => go('multimodal')}>前往多模態學習 →</GhostButton>
-        </div>
-
-        <div className="mt-3 rounded-xl border border-pporange/30 bg-pporange/10 p-2 text-[11px] text-pporange/90">
-          回答官方質疑：EXP <b>只能</b>靠「看課 / 用 AI」取得 → 遊戲化＝看課引擎，非平行娛樂。
         </div>
       </div>
 
