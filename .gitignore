@@ -25,6 +25,13 @@ push.bat
 build.bat
 build2.bat
 run_npm.cmd
+# AWS deploy helpers / artifacts (local only, may contain temp tokens)
+amp*
+aws_*
+awscli_*
+verify_site*
+build_zip*
+dist.zip
 npm_log.txt
 npm_exit.txt
 npm_result.txt
