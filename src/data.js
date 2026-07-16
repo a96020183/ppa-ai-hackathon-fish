@@ -257,7 +257,7 @@ export const squad = {
     { name: 'Wei', form: 'scholar', petName: 'WuWu', level: 6, progress: 100 },
     { name: '狗兒', form: 'default', petName: 'DoDo', level: 3, progress: 35 },
   ],
-  pokeMsg: (from, to) => `已敲 ${to} 一下：「${from} 提醒你不要睡著，記得回來看課 👀」`,
+  pokeMsg: (from, to) => `已敲 ${to} 一下：「提醒你不要睡著，記得回來看課 👀」`,
 }
 
 // ── 官方 / 實跑數據（給 PPT / 說明用；成效儀表板已移出 Demo）──
