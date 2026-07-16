@@ -25,12 +25,13 @@ export default function Arena({ go }) {
           </button>
         </div>
 
-        {/* 大榜：個人挑戰 ladder（多題連勝） */}
+        {/* 大榜：個人挑戰 ladder（單人連勝 · 總題庫） */}
         <Card className="p-3">
           <div className="mb-2 flex items-center justify-between text-xs">
-            <span className="font-bold">個人挑戰（連勝衝榜）</span>
+            <span className="font-bold">個人挑戰 · 單人連勝</span>
             <button onClick={() => go('leaderboard')} className="text-pporange">看排行榜 ›</button>
           </div>
+          <div className="mb-2 text-[11px] text-white/55">題目來自「總題庫」跨分類混合，連勝越多、獎勵越高</div>
           <div className="flex items-center justify-between">
             {ladder.map((l, i) => (
               <div key={i} className="flex flex-col items-center">
@@ -40,7 +41,7 @@ export default function Arena({ go }) {
               </div>
             ))}
           </div>
-          <div className="mt-3"><PrimaryButton onClick={() => go('quiz')}>免費挑戰</PrimaryButton></div>
+          <div className="mt-3"><PrimaryButton onClick={() => go('quiz', 'solo')}>免費挑戰（單人連勝）</PrimaryButton></div>
         </Card>
 
         {/* 六大分類：跟人 PK，各自累積分類雷達 */}
@@ -49,7 +50,7 @@ export default function Arena({ go }) {
           const r = categoryRadars[c.key]
           const unlocked = r.played >= r.unlockAt
           return (
-            <button key={c.key} onClick={() => go(unlocked ? 'radar' : 'quiz')} className="w-full text-left">
+            <button key={c.key} onClick={() => go(unlocked ? 'radar' : 'quiz', 'pk')} className="w-full text-left">
               <Card tone={c.tone} className="flex items-center justify-between p-3">
                 <div>
                   <div className="text-sm font-bold">{c.name} {c.icon}</div>

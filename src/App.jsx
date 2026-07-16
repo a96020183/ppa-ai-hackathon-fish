@@ -37,9 +37,10 @@ const MODULE_TAGS = {
 export default function App() {
   const [screen, setScreen] = useState('arena')
   const [history, setHistory] = useState([])
+  const [param, setParam] = useState(null)
   const Current = SCREENS[screen]
 
-  const go = (id) => { setHistory((h) => [...h, screen]); setScreen(id) }
+  const go = (id, p = null) => { setHistory((h) => [...h, screen]); setParam(p); setScreen(id) }
   const back = () => setHistory((h) => {
     if (!h.length) return h
     setScreen(h[h.length - 1])
@@ -115,7 +116,7 @@ export default function App() {
                 </button>
               </div>
               <div className="pp-scroll h-[688px] overflow-y-auto rounded-[1.6rem] bg-gradient-to-b from-[#0c1d3d] to-[#0a1730]">
-                <Current go={go} />
+                <Current go={go} param={param} />
               </div>
             </div>
           </div>
