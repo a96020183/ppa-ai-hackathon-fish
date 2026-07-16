@@ -66,10 +66,6 @@ export default function Quiz({ go }) {
         {picked === correct && (
           <div className="mt-4 text-center text-sm text-ppgreen">答對！進入結算… </div>
         )}
-
-        <div className="mt-4 text-center text-[11px] text-white/40">
-          （示範：選 A＝答錯走「45秒軟著陸」；選 B＝答對走「AI 診斷」）
-        </div>
       </div>
     </div>
   )

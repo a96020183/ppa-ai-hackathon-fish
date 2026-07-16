@@ -1,6 +1,6 @@
 import React from 'react'
 import { categories, categoryRadars, pet } from '../data.js'
-import { PhoneHeader, PrimaryButton, Card, PetAvatar } from '../components/ui.jsx'
+import { PhoneHeader, PrimaryButton, Card, PetAvatar, Coin } from '../components/ui.jsx'
 
 export default function Arena({ go }) {
   const ladder = [
@@ -60,7 +60,7 @@ export default function Arena({ go }) {
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className="text-[11px] opacity-60">入場費 {c.fee} 🪙</div>
+                  <div className="flex items-center justify-end gap-1 text-[11px] opacity-60">入場費 {c.fee} <Coin size={12} /></div>
                   <div className="text-[11px] font-bold">{unlocked ? '🔓 看雷達' : '🔒'}</div>
                 </div>
               </Card>
@@ -68,9 +68,6 @@ export default function Arena({ go }) {
           )
         })}
 
-        <div className="pt-1 text-center text-[11px] text-white/40">
-          分類玩滿 5 場 → 解鎖該分類 AI 實力雷達；雷達總分決定 PiPi 外型
-        </div>
       </div>
     </div>
   )

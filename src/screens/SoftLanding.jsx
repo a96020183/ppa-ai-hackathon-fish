@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { anchor } from '../data.js'
-import { PhoneHeader, PrimaryButton, GhostButton, Chip } from '../components/ui.jsx'
+import { PhoneHeader, PrimaryButton, GhostButton } from '../components/ui.jsx'
 
 // 模組 B：動態懸念剪輯與「45 秒軟著陸」（內容農場式前導鉤子 + 兩個出口）
 export default function SoftLanding({ go }) {
@@ -21,11 +21,6 @@ export default function SoftLanding({ go }) {
     <div>
       <PhoneHeader title="AI 助教 · 主動攔截" />
       <div className="px-4 pb-6">
-        <div className="mt-2 flex flex-wrap gap-2">
-          <Chip color="orange">模組B · 動態懸念</Chip>
-          <Chip>不撞付費牆</Chip>
-        </div>
-
         {/* 內容農場式前導鉤子（引發疑問 → 想看短精華） */}
         {!started && (
           <div className="mt-3 rounded-2xl bg-gradient-to-br from-[#2a1c3f] to-[#0e2143] p-4 shadow-card">
@@ -83,12 +78,8 @@ export default function SoftLanding({ go }) {
           <div className="mt-4 space-y-2">
             <PrimaryButton onClick={() => go('recommend')}>看完整課程・解鎖完整解法</PrimaryButton>
             <GhostButton onClick={() => go('radar')}>先看我的 AI 實力雷達圖 →</GhostButton>
-            <div className="text-center text-[10px] text-white/40">非會員看完 45 秒可加入會員（＝擴大 AI 觸及池）</div>
+            <div className="text-center text-[10px] text-white/40">非會員看完 45 秒可加入會員，解鎖完整課程</div>
           </div>
-        )}
-
-        {started && !ended && (
-          <div className="mt-4 text-center text-[11px] text-white/40">45 秒後在最高潮處截斷，引發解鎖渴望</div>
         )}
       </div>
     </div>

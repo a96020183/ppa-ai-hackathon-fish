@@ -8,13 +8,8 @@ export default function Recommend({ go }) {
     <div>
       <PhoneHeader title="AI 助教 · 智慧推薦" />
       <div className="px-4 pb-6">
-        <div className="mt-1 flex flex-wrap gap-2">
-          <Chip color="orange">模組C</Chip>
-          <Chip>記憶去重</Chip>
-          <Chip color="green">熱門加乘</Chip>
-        </div>
-
-        <div className="mt-2 text-[11px] text-white/50">答題來源課程推薦（皆為單堂加購課程，訂閱會員亦需購買）</div>
+        <div className="mt-2 text-[12px] font-bold text-white/80">答題來源課程推薦</div>
+        <div className="text-[11px] text-white/45">單堂加購課程（訂閱會員亦需購買）</div>
 
         <div className="mt-2 space-y-3">
           {recommendations.map((r) => (
@@ -41,12 +36,7 @@ export default function Recommend({ go }) {
           ))}
         </div>
 
-        <div className="mt-4 rounded-xl border border-ppcyan/30 bg-ppcyan/10 p-3 text-[12px] text-ppcyan/90">
-          <b>去重邏輯：</b>Bedrock RAG 撈最匹配 3 堂，於 DynamoDB 過濾掉已看 &gt;80% 的內容 ID，
-          徹底解決 Beta 版「每次推薦都一樣」的敷衍感。
-        </div>
-
-        <div className="mt-3"><GhostButton onClick={() => go('pet')}>看看學習如何餵養我的 PiPi →</GhostButton></div>
+        <div className="mt-4"><GhostButton onClick={() => go('pet')}>看看學習如何餵養我的 PiPi →</GhostButton></div>
       </div>
     </div>
   )

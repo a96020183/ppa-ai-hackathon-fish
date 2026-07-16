@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { PhoneHeader, Chip } from '../components/ui.jsx'
+import { PhoneHeader } from '../components/ui.jsx'
 
 // 模組 D：多模態學習與權限分級
 const MODES = [
@@ -16,8 +16,7 @@ export default function Multimodal({ go }) {
     <div>
       <PhoneHeader title="多模態學習 · 展開看更多" />
       <div className="px-4 pb-6">
-        <div className="mt-1 flex flex-wrap items-center gap-2">
-          <Chip color="orange">模組D</Chip>
+        <div className="mt-1 flex items-center">
           <button onClick={() => setMember((m) => !m)} className="ml-auto rounded-full border border-white/20 px-2 py-0.5 text-[11px]">
             身分：{member ? '付費會員 ✅' : '免費用戶'}（點我切換）
           </button>
@@ -47,7 +46,7 @@ export default function Multimodal({ go }) {
               <div className="flex flex-col items-center justify-center py-6 text-center">
                 <div className="text-3xl">🔒</div>
                 <div className="mt-2 text-white/80">{mode === 'text' ? '全文本電子書' : '純聲 Podcast'} 為會員專屬</div>
-                <button onClick={() => setMember(true)} className="mt-3 rounded-xl bg-pporange px-4 py-2 text-[13px] font-bold text-[#231600]">加入會員解鎖（＝擴大 AI 觸及池）</button>
+                <button onClick={() => setMember(true)} className="mt-3 rounded-xl bg-pporange px-4 py-2 text-[13px] font-bold text-[#231600]">加入會員解鎖</button>
               </div>
             )}
             {mode === 'text' && member && (
@@ -70,11 +69,7 @@ export default function Multimodal({ go }) {
           </div>
         </div>
 
-        <div className="mt-4 rounded-xl border border-ppcyan/30 bg-ppcyan/10 p-3 text-[12px] text-ppcyan/90">
-          同一套課程 → 影音 / 電子書 / Podcast 三種學習場景，直接命中官方「多元化學習場景」。
-        </div>
-
-        <div className="mt-3"><button onClick={() => go('metrics')} className="w-full rounded-xl border border-white/20 py-2.5 text-sm text-white/80">看成效衡量儀表板 →</button></div>
+        <div className="mt-4"><button onClick={() => go('arena')} className="w-full rounded-xl border border-white/20 py-2.5 text-sm text-white/80">回到擂台首頁 →</button></div>
       </div>
     </div>
   )

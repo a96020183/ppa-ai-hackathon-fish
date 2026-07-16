@@ -60,9 +60,21 @@ export function PhoneHeader({ title, coins = 325, back, onBack }) {
       </div>
       <div className="flex items-center gap-2">
         <span className="rounded-full bg-white/10 px-2 py-0.5 text-[11px]">排行榜</span>
-        <span className="rounded-full bg-pporange/90 px-2 py-0.5 text-[11px] font-bold text-[#231600]">🪙 {coins}</span>
+        <span className="inline-flex items-center gap-1 rounded-full bg-pporange/90 px-2 py-0.5 text-[11px] font-bold text-[#231600]"><Coin /> {coins}</span>
       </div>
     </div>
+  )
+}
+
+// 樣式硬幣（不依賴 emoji 字型，投影機/任何電腦都不會變豆腐方框）
+export function Coin({ size = 14 }) {
+  return (
+    <span
+      style={{ width: size, height: size }}
+      className="inline-flex shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#FFE08A] to-[#F0951B] text-[9px] font-black text-[#5a3a00] shadow-sm ring-1 ring-[#c97d0a] align-middle"
+    >
+      P
+    </span>
   )
 }
 
@@ -92,21 +104,25 @@ const TIER = {
   bronze: 'from-[#E7B37A] to-[#B4793C]',
   locked: 'from-[#3a4a63] to-[#2a3648]',
 }
-export function HexBadge({ badge, size = 64, onClick, selected }) {
+export function HexBadge({ badge, size = 64, onClick, selected, compact = false }) {
   const grad = TIER[badge.tier] || TIER.locked
   const locked = badge.tier === 'locked'
   const clip = 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)'
+  const hex = (
+    <div
+      className={`relative flex items-center justify-center bg-gradient-to-br ${grad} ${selected ? 'ring-2 ring-pporange ring-offset-2 ring-offset-[#0c1d3d]' : ''}`}
+      style={{ width: size, height: size, clipPath: clip }}
+    >
+      <span style={{ fontSize: size * 0.4, opacity: locked ? 0.4 : 1 }}>{badge.icon}</span>
+      {selected && !compact && (
+        <span className="absolute -right-0 -top-0 flex h-4 w-4 items-center justify-center rounded-full bg-pporange text-[9px] font-bold text-[#231600]">✓</span>
+      )}
+    </div>
+  )
+  if (compact) return <div title={`${badge.name} Lv.${badge.level}`}>{hex}</div>
   return (
     <button onClick={onClick} className="flex flex-col items-center gap-1" style={{ width: size + 12 }}>
-      <div
-        className={`relative flex items-center justify-center bg-gradient-to-br ${grad} ${selected ? 'ring-2 ring-pporange ring-offset-2 ring-offset-[#0c1d3d]' : ''}`}
-        style={{ width: size, height: size, clipPath: clip }}
-      >
-        <span style={{ fontSize: size * 0.4, opacity: locked ? 0.4 : 1 }}>{badge.icon}</span>
-        {selected && (
-          <span className="absolute -right-0 -top-0 flex h-4 w-4 items-center justify-center rounded-full bg-pporange text-[9px] font-bold text-[#231600]">✓</span>
-        )}
-      </div>
+      {hex}
       <div className="text-center leading-tight">
         <div className="text-[10px] font-semibold text-white/85">{badge.name}</div>
         <div className={`text-[9px] ${locked ? 'text-white/35' : 'text-pporange'}`}>{locked ? '未解鎖' : 'Lv.' + badge.level}</div>

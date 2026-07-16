@@ -13,8 +13,6 @@ export default function RadarResult({ go }) {
       <PhoneHeader title={radarSample.title} />
       <div className="px-4 pb-6">
         <div className="mt-1 flex flex-wrap gap-2">
-          <Chip color="orange">模組A · 主動進化</Chip>
-          <Chip color="green">主線</Chip>
           <Chip color="gray">{cat.icon} {cat.name}</Chip>
         </div>
 
@@ -73,10 +71,6 @@ export default function RadarResult({ go }) {
             <div className="mt-4 space-y-2">
               <PrimaryButton onClick={() => go('recommend')}>立即觀看免費 AI 補強短影</PrimaryButton>
               <GhostButton onClick={() => go('profile')}>看我的個人主頁（全分類雷達）→</GhostButton>
-            </div>
-
-            <div className="mt-3 rounded-xl border border-pporange/30 bg-pporange/10 p-2 text-[11px] text-pporange/90">
-              解決斷點：39.6% 對話「問一次就走」。這裡 AI 主動接住，不讓對話冷掉。
             </div>
           </>
         )}

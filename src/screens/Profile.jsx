@@ -9,7 +9,6 @@ export default function Profile({ go }) {
   const [sel, setSel] = useState(radarOrder.find((k) => categoryRadars[k].played >= categoryRadars[k].unlockAt) || 'invest')
   const cat = categoryRadars[sel]
   const unlocked = cat.played >= cat.unlockAt
-  const formLabel = petMeta.forms[pet.primaryForm].label
 
   return (
     <div>
@@ -20,12 +19,12 @@ export default function Profile({ go }) {
           <PetAvatar form={pet.primaryForm} size={64} />
           <div className="flex-1">
             <div className="text-sm font-bold">Ho Wa Chui <span className="ml-1 rounded bg-white/15 px-1 text-[10px]">Lv.{pet.level}</span></div>
-            <div className="text-[11px] text-ppcyan">{pet.formLabel}・{formLabel}</div>
-            <div className="mt-1 flex gap-1.5">
+            <div className="text-[11px] text-ppcyan">{pet.title}・{pet.formLabel}</div>
+            <div className="mt-1.5 flex items-center gap-1.5">
               {displayed.map((b) => (
-                <span key={b.id} className="text-[16px]" title={b.name}>{b.icon}</span>
+                <HexBadge key={b.id} badge={b} size={26} compact />
               ))}
-              <button onClick={() => go('pet')} className="text-[10px] text-white/40">編輯 ›</button>
+              <button onClick={() => go('pet')} className="ml-1 text-[10px] text-white/40">編輯 ›</button>
             </div>
           </div>
         </Card>
@@ -64,12 +63,7 @@ export default function Profile({ go }) {
           )}
         </Card>
 
-        <div className="mt-3 rounded-xl border border-ppcyan/30 bg-ppcyan/10 p-3 text-[12px] text-ppcyan/90">
-          雷達圖「<b>依分類累積</b>」：一個分類玩滿 5 場才夠資料精準診斷。
-          各分類雷達的<b>總分</b> → 取最高的 2~3 名 → 決定你的 PiPi 進化外型。
-        </div>
-
-        <div className="mt-3"><GhostButton onClick={() => go('pet')}>前往知識精靈 + 戰隊 →</GhostButton></div>
+        <div className="mt-4"><GhostButton onClick={() => go('pet')}>前往知識精靈 + 戰隊 →</GhostButton></div>
       </div>
     </div>
   )

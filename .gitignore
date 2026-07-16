@@ -23,6 +23,7 @@ check.bat
 diff.bat
 push.bat
 build.bat
+build2.bat
 run_npm.cmd
 npm_log.txt
 npm_exit.txt
