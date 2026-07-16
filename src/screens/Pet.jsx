@@ -114,7 +114,7 @@ export default function Pet({ go }) {
 
         <div className="mt-4 space-y-2">
           <PrimaryButton onClick={feed}>去看課餵養 PiPi（+EXP）</PrimaryButton>
-          <GhostButton onClick={() => go('multimodal')}>前往多模態學習 →</GhostButton>
+          <GhostButton onClick={() => go('arena')}>回到擂台首頁 →</GhostButton>
         </div>
       </div>
 

@@ -32,6 +32,15 @@ awscli_*
 verify_site*
 build_zip*
 dist.zip
+deploy*
+bld*
+v.py
+v.bat
+v_out.txt
+chk*
+zipit*
+redeploy*
+finalchk*
 npm_log.txt
 npm_exit.txt
 npm_result.txt

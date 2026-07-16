@@ -69,7 +69,7 @@ export default function Multimodal({ go }) {
           </div>
         </div>
 
-        <div className="mt-4"><button onClick={() => go('arena')} className="w-full rounded-xl border border-white/20 py-2.5 text-sm text-white/80">回到擂台首頁 →</button></div>
+        <div className="mt-4"><button onClick={() => go('profile')} className="w-full rounded-xl border border-white/20 py-2.5 text-sm text-white/80">看我的個人主頁 →</button></div>
       </div>
     </div>
   )

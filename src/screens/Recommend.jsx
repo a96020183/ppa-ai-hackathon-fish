@@ -36,7 +36,7 @@ export default function Recommend({ go }) {
           ))}
         </div>
 
-        <div className="mt-4"><GhostButton onClick={() => go('pet')}>看看學習如何餵養我的 PiPi →</GhostButton></div>
+        <div className="mt-4"><GhostButton onClick={() => go('multimodal')}>選喜歡的模態看完整課程 →</GhostButton></div>
       </div>
     </div>
   )

@@ -36,7 +36,16 @@ const MODULE_TAGS = {
 
 export default function App() {
   const [screen, setScreen] = useState('arena')
+  const [history, setHistory] = useState([])
   const Current = SCREENS[screen]
+
+  const go = (id) => { setHistory((h) => [...h, screen]); setScreen(id) }
+  const back = () => setHistory((h) => {
+    if (!h.length) return h
+    setScreen(h[h.length - 1])
+    return h.slice(0, -1)
+  })
+  const home = () => { setHistory([]); setScreen('arena') }
 
   return (
     <div className="min-h-screen w-full px-4 py-6 lg:px-10">
@@ -60,7 +69,7 @@ export default function App() {
               {flow.map((f) => (
                 <button
                   key={f.id}
-                  onClick={() => setScreen(f.id)}
+                  onClick={() => go(f.id)}
                   className={`w-full rounded-xl border px-3 py-2 text-left transition ${
                     screen === f.id
                       ? 'border-pporange bg-pporange/15'
@@ -74,7 +83,7 @@ export default function App() {
             </div>
           </div>
           <div className="mt-3 rounded-2xl border border-ppline/60 bg-ppnavy2/60 p-3 text-[11px] leading-relaxed text-white/60">
-            <b className="text-white/80">建議動線：</b>擂台 → 排行榜 → 答題（選 A 答錯）→ 45秒軟著陸 → AI 診斷雷達 → 推薦去重 → 個人主頁 → 精靈/戰隊 → 多模態。
+            <b className="text-white/80">建議動線：</b>擂台 → 排行榜 → 答題（選錯答案）→ 45秒軟著陸 → AI 診斷雷達 → 推薦去重 → 多模態看課 → 個人主頁 → 精靈/戰隊。
           </div>
         </aside>
 
@@ -88,8 +97,25 @@ export default function App() {
             <div className="relative rounded-[2.2rem] border border-ppline bg-[#0b1b3a] p-3 shadow-card">
               {/* notch */}
               <div className="mx-auto mb-2 h-1.5 w-24 rounded-full bg-white/20" />
-              <div className="pp-scroll h-[720px] overflow-y-auto rounded-[1.6rem] bg-gradient-to-b from-[#0c1d3d] to-[#0a1730]">
-                <Current go={setScreen} />
+              {/* 通用導覽列：返回 / 回首頁（每頁都有） */}
+              <div className="mb-1.5 flex items-center justify-between px-1">
+                <button
+                  onClick={back}
+                  disabled={history.length === 0}
+                  className={`rounded-lg px-2 py-1 text-[12px] transition ${history.length === 0 ? 'text-white/20' : 'text-white/70 hover:bg-white/10'}`}
+                >
+                  ‹ 返回
+                </button>
+                <button
+                  onClick={home}
+                  disabled={screen === 'arena'}
+                  className={`rounded-lg px-2 py-1 text-[12px] transition ${screen === 'arena' ? 'text-white/20' : 'text-white/70 hover:bg-white/10'}`}
+                >
+                  回首頁
+                </button>
+              </div>
+              <div className="pp-scroll h-[688px] overflow-y-auto rounded-[1.6rem] bg-gradient-to-b from-[#0c1d3d] to-[#0a1730]">
+                <Current go={go} />
               </div>
             </div>
           </div>
