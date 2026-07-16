@@ -2,6 +2,7 @@ import React from 'react'
 
 // 純 SVG 雷達圖，無外部套件
 export default function RadarChart({ dims, size = 230, weakest }) {
+  const pad = 42 // 左右留白，避免側邊標籤（如「心理紀律」）被切掉
   const cx = size / 2
   const cy = size / 2
   const r = size / 2 - 30
@@ -17,7 +18,7 @@ export default function RadarChart({ dims, size = 230, weakest }) {
   const polygon = dims.map((d, i) => point(i, d.value / 100).join(',')).join(' ')
 
   return (
-    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+    <svg width={size + pad * 2} height={size} viewBox={`${-pad} 0 ${size + pad * 2} ${size}`}>
       {/* grid rings */}
       {rings.map((ratio, idx) => (
         <polygon
