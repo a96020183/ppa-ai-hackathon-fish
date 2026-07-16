@@ -41,6 +41,10 @@ chk*
 zipit*
 redeploy*
 finalchk*
+make_ppt*
+verify_ppt*
+pptenv*
+pptinstall*
 npm_log.txt
 npm_exit.txt
 npm_result.txt
