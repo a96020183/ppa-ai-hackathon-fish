@@ -50,22 +50,30 @@ export default function Arena({ go }) {
           const r = categoryRadars[c.key]
           const unlocked = r.played >= r.unlockAt
           return (
-            <button key={c.key} onClick={() => go(unlocked ? 'radar' : 'quiz', 'pk')} className="w-full text-left">
-              <Card tone={c.tone} className="flex items-center justify-between p-3">
-                <div>
+            <Card key={c.key} tone={c.tone} className="p-3">
+              <div className="flex items-center justify-between gap-2">
+                {/* 點主區 = 開始 PK 對戰 */}
+                <button onClick={() => go('quiz', 'pk')} className="flex-1 text-left">
                   <div className="text-sm font-bold">{c.name} {c.icon}</div>
-                  <div className="text-[11px] opacity-70">
-                    {unlocked
-                      ? `雷達已解鎖 · 總分 ${r.total}`
-                      : `再玩 ${r.unlockAt - r.played} 場解鎖雷達（${r.played}/${r.unlockAt}）`}
+                  <div className="flex items-center gap-1 text-[11px] opacity-70">
+                    開始 PK 對戰 · 入場費 {c.fee} <Coin size={12} />
                   </div>
+                </button>
+                {/* 看雷達 = 獨立按鈕（解鎖後才出現） */}
+                <div className="shrink-0 text-right">
+                  {unlocked ? (
+                    <button
+                      onClick={() => go('radar')}
+                      className="rounded-lg bg-black/10 px-2 py-1 text-[11px] font-bold hover:bg-black/20"
+                    >
+                      🔓 看雷達 · {r.total}
+                    </button>
+                  ) : (
+                    <div className="text-[11px] opacity-70">🔒 再玩 {r.unlockAt - r.played} 場<br/>解鎖雷達</div>
+                  )}
                 </div>
-                <div className="text-right">
-                  <div className="flex items-center justify-end gap-1 text-[11px] opacity-60">入場費 {c.fee} <Coin size={12} /></div>
-                  <div className="text-[11px] font-bold">{unlocked ? '🔓 看雷達' : '🔒'}</div>
-                </div>
-              </Card>
-            </button>
+              </div>
+            </Card>
           )
         })}
 
