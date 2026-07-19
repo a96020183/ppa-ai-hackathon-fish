@@ -1,0 +1,50 @@
+# dependencies / build
+node_modules/
+dist/
+*.log
+
+# editor / OS
+.DS_Store
+.vscode/
+Thumbs.db
+
+# ---- 官方機密資料：嚴禁上傳（保險起見再擋一層）----
+*.xlsx
+*.pdf
+**/官方*/
+
+# helper scripts (local only)
+setup.bat
+dev.bat
+pull.bat
+pull2.bat
+fetch.bat
+check.bat
+diff.bat
+push.bat
+build.bat
+build2.bat
+run_npm.cmd
+# AWS deploy helpers / artifacts (local only, may contain temp tokens)
+amp*
+aws_*
+awscli_*
+verify_site*
+build_zip*
+dist.zip
+deploy*
+bld*
+v.py
+v.bat
+v_out.txt
+chk*
+zipit*
+redeploy*
+finalchk*
+make_ppt*
+verify_ppt*
+pptenv*
+pptinstall*
+npm_log.txt
+npm_exit.txt
+npm_result.txt

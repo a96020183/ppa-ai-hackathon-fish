@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "1.0.0",
+  "dataModelVersion": 1,
+  "id": "sess_b67207ff-b5c4-47b6-8807-c1159589af6b",
+  "title": "CLAUDE",
+  "agentMode": "vibe",
+  "workspacePaths": [
+    "c:\\Users\\Fung N2\\AWS"
+  ],
+  "createdAt": "2026-07-15T00:51:00.151Z",
+  "lastModifiedAt": "2026-07-19T13:43:28.342Z",
+  "modelId": "claude-opus-4.8",
+  "autopilot": true,
+  "effortLevel": "high",
+  "semanticReviewEnabled": true,
+  "ftaEnabled": false,
+  "specPlanEnabled": false,
+  "specWorkflow": "quick",
+  "specSkipClarificationEnabled": true,
+  "status": "in_progress"
+}
